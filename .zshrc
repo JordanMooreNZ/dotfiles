@@ -139,3 +139,5 @@ setopt HIST_IGNORE_SPACE
 
 # Trim excessive whitespace from commands before adding to history
 setopt HIST_REDUCE_BLANKS
+
+for file in ~/.{path,bash_prompt,aliases,functions}; do [ -r "$file" ] && [ -f "$file" ] && source "$file"; done; unset file;

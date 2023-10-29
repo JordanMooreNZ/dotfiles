@@ -1,0 +1,43 @@
+## Random
+alias oos="exec zsh"
+alias od="vsc ~/.oh-my-zsh/"
+alias open-dotfiles="od"
+eval $(thefuck --alias fuck)
+alias cdnep="cd ~/code/neptune"
+alias cdbdf="cd ~/code/bdf-service"
+
+## Personal Git aliases
+alias gco="git checkout"
+alias gcd="gco develop"
+alias gcm="gcd"
+alias gcob="git checkout -b"
+alias gc="git commit -m"
+alias gs.="git add . && git stash"
+alias gsp="git stash pop"
+alias gsc="git stash clear"
+alias grbd="git rebase develop"
+alias grbm="grbd"
+alias gdd="git diff develop"
+alias gfx="ga . && git commit --fixup HEAD && grbi origin/HEAD"
+# alias deploydiff="git log production..master --graph --pretty=format:'%<(23)%an    %s' --abbrev-commit"
+# alias reset-test='RAILS_ENV=test be rake db:reset'
+
+## Docker
+alias dcdown='docker-compose down'
+alias ddown="docker-compose down"
+alias ddwon="ddown"
+# alias dcr='docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.dev.yml run --rm app'
+alias dcr='docker-compose run --rm app'
+alias dcbash='dcr /bin/bash'
+alias dcrs='docker-compose restart'
+alias dcrsa='docker-compose restart app'
+alias dcrsw='docker-compose restart worker'
+alias dcup='docker-compose up -d'
+# alias dsyncrs="docker-sync stop && docker-sync clean && docker-sync start"
+
+## Rails stuff
+alias rtest="dcr bundle exec rspec"
+
+## Edge deploys
+alias deploy=“docker-compose run -v ~/.buildkite-build:/root/.buildkite-build app buildkite-build -p neptune-aws-deploys”
+alias deploy-jssc=“docker-compose run -v ~/.buildkite-build:/root/.buildkite-build app buildkite-build -p neptune-jssc-edge-deploys”
