@@ -1,20 +1,28 @@
-[credential "https://dev.azure.com"]
-	useHttpPath = true
 [user]
-	name = Jordan Moore
-	email = jordanmoore.nz@gmail.com
-[github]
-	user = JordanMooreNZ
-[pager]
-	branch = false
-[pull]
-	ff = true
-[init]
-	defaultBranch = main
-[credential]
-	helper = 
-	helper = /usr/local/share/gcm-core/git-credential-manager
-[push]
-	autoSetupRemote = true
+  name = Jordan Moore
+  email = jordanmoore.nz@gmail.com
+[color]
+  ui = true
 [core]
-	editor = code --wait
+  editor = code --wait
+  pager = diff-so-fancy | less --tabs=4 -RFX
+[interactive]
+  diffFilter = diff-so-fancy --patch
+[color "diff-highlight"]
+  oldNormal = red bold
+  oldHighlight = red bold 52
+  newNormal = green bold
+  newHighlight = green bold 22
+[color "diff"]
+  meta = yellow
+  frag = magenta bold
+  func = 146 bold
+  commit = yellow bold
+  old = red bold
+  new = green bold
+  whitespace = red reverse
+[push]
+  default = current
+  autoSetupRemote = true
+[commit]
+  gpgsign = true
