@@ -92,6 +92,7 @@ plugins=(
   ruby
   thefuck
   zsh-autosuggestions
+  zsh-syntax-highlighting
   safe-paste
 )
 
@@ -141,15 +142,15 @@ alias src="exec zsh"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-eval $(thefuck --alias)
-# You can use whatever you want as an alias, like for Mondays:
-eval $(thefuck --alias FUCK)
+# eval $(thefuck --alias)
+# # You can use whatever you want as an alias, like for Mondays:
+# eval $(thefuck --alias FUCK)
 export PATH="/usr/local/sbin:$PATH"
 
 # This check to make sure the GPG Agent is running and if not, starts it
-if [[ ! -S ~/.gnupg/S.gpg-agent && ! -n "$(pgrep gpg-agent)" ]]; then
-  eval $(eval $(gpg-agent --daemon --options ~/.gnupg/gpg-agent.conf))
-fi
+# if [[ ! -S ~/.gnupg/S.gpg-agent && ! -n "$(pgrep gpg-agent)" ]]; then
+#   eval $(eval $(gpg-agent --daemon --options ~/.gnupg/gpg-agent.conf))
+# fi
 
 # export DOCKER_DEFAULT_PLATFORM=linux/arm64
 

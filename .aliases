@@ -2,7 +2,7 @@
 alias oos="exec zsh"
 alias od="vsc ~/.oh-my-zsh/"
 alias open-dotfiles="od"
-eval $(thefuck --alias fuck)
+# eval $(thefuck --alias fuck)
 alias cdnep="cd ~/code/neptune"
 alias cdbdf="cd ~/code/bdf-service"
 
