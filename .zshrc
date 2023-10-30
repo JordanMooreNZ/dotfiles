@@ -15,14 +15,14 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-# ZSH_THEME="robbyrussell"
+# ZSH_THEME=random
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
 # If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+ZSH_THEME_RANDOM_CANDIDATES=( "fletcherm" "re5et" "tjkirch" "tonotdo" "zsh2000" "powerlevel10k/powerlevel10k" )
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -68,7 +68,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 # or set a custom format using the strftime function format specifications,
 # see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
+HIST_STAMPS="yyyy-mm-dd"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
@@ -78,12 +78,21 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-# plugins=(git)
 plugins=(
   git
+  bundler
+  copybuffer
+  copypath
+  docker
+  docker-compose
+  dotenv
+  history
+  macos
+  rake
+  ruby
+  thefuck
   zsh-autosuggestions
-  zsh-syntax-highlighting
-  # dotenv
+  safe-paste
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -91,8 +100,6 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
-
-export PATH="$HOME/go/bin/:$PATH"
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -107,6 +114,20 @@ export PATH="$HOME/go/bin/:$PATH"
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
+# Set CLICOLOR if you want Ansi Colors in iTerm2
+export CLICOLOR=1
+
+# Set colors to match iTerm2 Terminal Colors
+export TERM=xterm-256color
+
+# asdf
+# export PATH="$HOME/.asdf/bin:$HOME/.asdf/shims:$PATH"
+
+# nvm
+export NVM_DIR="$HOME/.nvm"
+  [ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -115,29 +136,23 @@ export PATH="$HOME/go/bin/:$PATH"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias src="exec zsh"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# added by terraform -install-autocomplete
-autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /opt/homebrew/bin/terraform terraform
+eval $(thefuck --alias)
+# You can use whatever you want as an alias, like for Mondays:
+eval $(thefuck --alias FUCK)
+export PATH="/usr/local/sbin:$PATH"
 
-# used for gh cli auto completion
-# see: https://cli.github.com/manual/gh_completion
-[[ -d ~/.oh-my-zsh/completions ]] || mkdir ~/.oh-my-zsh/completions
-gh completion -s zsh > ~/.oh-my-zsh/completions/_gh
-autoload -U compinit
-compinit -i
+# This check to make sure the GPG Agent is running and if not, starts it
+if [[ ! -S ~/.gnupg/S.gpg-agent && ! -n "$(pgrep gpg-agent)" ]]; then
+  eval $(eval $(gpg-agent --daemon --options ~/.gnupg/gpg-agent.conf))
+fi
 
-# command output behavior - send output to terminal
-# see: https://superuser.com/questions/1698521/zsh-keep-all-command-outputs-on-terminal-screen
-export PAGER=""
+# export DOCKER_DEFAULT_PLATFORM=linux/arm64
 
-# Do not put commands in history if they begin with a SPACE
-setopt HIST_IGNORE_SPACE
+[ -s "/Users/jordan.moore/.scm_breeze/scm_breeze.sh" ] && source "/Users/jordan.moore/.scm_breeze/scm_breeze.sh"
 
-# Trim excessive whitespace from commands before adding to history
-setopt HIST_REDUCE_BLANKS
-
-for file in ~/.{path,bash_prompt,aliases,functions}; do [ -r "$file" ] && [ -f "$file" ] && source "$file"; done; unset file;
+eval "$(rbenv init - zsh)"
