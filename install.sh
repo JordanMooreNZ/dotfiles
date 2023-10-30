@@ -38,4 +38,5 @@ echo 'LS_COLORS+=$_ls_colors' >> ~/.zshrc
 
 # set gitconfig defaults
 git config --global push.autoSetupRemote true
+git config --global core.pager cat
 git config --global core.editor "code --wait"
