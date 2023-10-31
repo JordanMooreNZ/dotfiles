@@ -157,3 +157,5 @@ export PATH="/usr/local/sbin:$PATH"
 [ -s "/Users/jordan.moore/.scm_breeze/scm_breeze.sh" ] && source "/Users/jordan.moore/.scm_breeze/scm_breeze.sh"
 
 # eval "$(rbenv init - zsh)"
+
+source ./.aliases
