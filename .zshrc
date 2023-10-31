@@ -90,7 +90,7 @@ plugins=(
   macos
   rake
   ruby
-  thefuck
+  # thefuck
   zsh-autosuggestions
   zsh-syntax-highlighting
   safe-paste
