@@ -138,6 +138,7 @@ export NVM_DIR="$HOME/.nvm"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias src="exec zsh"
+alias load-aliases="source $HOME/.aliases"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -158,4 +159,4 @@ export PATH="/usr/local/sbin:$PATH"
 
 # eval "$(rbenv init - zsh)"
 
-source ./.aliases
+source $HOME/.aliases

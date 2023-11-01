@@ -2,6 +2,10 @@
 
 zshrc() {
     echo "==========================================================="
+    echo "             import aliases                                  "
+    echo "-----------------------------------------------------------"
+    cat .aliases > $HOME/.aliases
+    echo "==========================================================="
     echo "             cloning zsh-autosuggestions                   "
     echo "-----------------------------------------------------------"
     git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
@@ -21,10 +25,6 @@ zshrc() {
     echo "             import powerlevel10k                          "
     echo "-----------------------------------------------------------"
     cat .p10k.zsh > $HOME/.p10k.zsh
-    echo "==========================================================="
-    echo "             import aliases                                  "
-    echo "-----------------------------------------------------------"
-    cat .aliases > $HOME/.aliases
 }
 
 # change time zone
