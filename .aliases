@@ -36,7 +36,10 @@ alias dcup='docker-compose up -d'
 # alias dsyncrs="docker-sync stop && docker-sync clean && docker-sync start"
 
 ## Rails stuff
-alias rtest="dcr bundle exec rspec"
+alias rt="bundle exec rspec"
+alias rs="bundle exec rails s -p 9292"
+alias rc="bundle exec rails c"
+
 
 ## Edge deploys
 alias deploy=“docker-compose run -v ~/.buildkite-build:/root/.buildkite-build app buildkite-build -p neptune-aws-deploys”
