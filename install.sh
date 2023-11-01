@@ -21,6 +21,10 @@ zshrc() {
     echo "             import powerlevel10k                          "
     echo "-----------------------------------------------------------"
     cat .p10k.zsh > $HOME/.p10k.zsh
+    echo "==========================================================="
+    echo "             import aliases                                  "
+    echo "-----------------------------------------------------------"
+    cat .aliases > $HOME/.aliases
 }
 
 # change time zone
