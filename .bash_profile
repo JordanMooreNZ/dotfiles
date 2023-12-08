@@ -1,4 +1,4 @@
-if [ -f $HOME/.bash_aliases ]; then
+if [ -f $HOME/.aliases ]; then
 . $HOME/.aliases
 fi
 
