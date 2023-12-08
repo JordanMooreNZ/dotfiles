@@ -42,5 +42,5 @@ alias rc="bundle exec rails c"
 
 
 ## Edge deploys
-alias deploy=“docker-compose run -v ~/.buildkite-build:/root/.buildkite-build app buildkite-build -p neptune-aws-deploys”
-alias deploy-jssc=“docker-compose run -v ~/.buildkite-build:/root/.buildkite-build app buildkite-build -p neptune-jssc-edge-deploys”
+alias deploy="docker-compose run -v ~/.buildkite-build:/root/.buildkite-build app buildkite-build -p neptune-aws-deploys"
+alias deploy-jssc="docker-compose run -v ~/.buildkite-build:/root/.buildkite-build app buildkite-build -p neptune-jssc-edge-deploys"
