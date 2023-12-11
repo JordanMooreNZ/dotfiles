@@ -4,7 +4,6 @@ DOTFILES_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
 # ln -sf "$DOTFILES_DIR/.bashrc" ~
 # ln -sf "$DOTFILES_DIR/.bash_profile" ~
-ln -sf "$DOTFILES_DIR/.aliases" ~
 
 # zshrc() {
 #     echo "==========================================================="
@@ -46,3 +45,7 @@ ln -sf "$DOTFILES_DIR/.aliases" ~
 git config --global push.autoSetupRemote true
 git config --global core.pager cat
 git config --global core.editor "code --wait"
+
+# load aliases
+ln -sf "$DOTFILES_DIR/.aliases" ~
+source ~/.aliases
