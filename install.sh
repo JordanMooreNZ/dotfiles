@@ -48,4 +48,11 @@ git config --global core.editor "code --wait"
 
 # load aliases
 ln -sf "$DOTFILES_DIR/.aliases" ~
-source "$DOTFILES_DIR/.aliases"
+
+# add source command to .bashrc
+echo "if [ -f ~/.aliases ]; then" >> ~/.bashrc
+echo "    source ~/.aliases" >> ~/.bashrc
+echo "fi" >> ~/.bashrc
+
+# source .bashrc to load aliases into current session
+source ~/.bashrc
