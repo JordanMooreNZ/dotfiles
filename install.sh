@@ -48,4 +48,4 @@ git config --global core.editor "code --wait"
 
 # load aliases
 ln -sf "$DOTFILES_DIR/.aliases" ~
-source ~/.aliases
+source "$DOTFILES_DIR/.aliases"
