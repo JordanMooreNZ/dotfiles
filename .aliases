@@ -54,6 +54,12 @@ alias rap="bundle exec rake assets:precompile"
 alias rt="bundle exec rspec"
 alias rs="bundle exec rails s -p 9292"
 alias rc="bundle exec rails c"
+alias rg="bundle exec rails g"
+alias rdb="bundle exec rake db"
+alias rdbm="bundle exec rake db:migrate"
+alias rdbr="bundle exec rake db:rollback"
+alias rgp="bundle exec rails g patches:patch"
+alias rpr="bundle exec rake patches:run"
 
 ## Edge deploys
 # alias deploy="docker-compose run -v ~/.buildkite-build:/root/.buildkite-build app buildkite-build -p neptune-aws-deploys"
