@@ -1,46 +1,60 @@
 ## Random
-alias oos="exec zsh"
-alias od="vsc ~/.oh-my-zsh/"
-alias open-dotfiles="od"
-# eval $(thefuck --alias fuck)
-alias cdnep="cd ~/code/neptune"
-alias cdbdf="cd ~/code/bdf-service"
+alias h=history
+alias hs='history | grep'
+alias hsi='history | grep -i'
+alias md='mkdir -p'
 
 ## Personal Git aliases
-alias gco="git checkout"
-alias gcd="gco develop"
-alias gcm="gcd"
-alias gcob="git checkout -b"
-alias gc="git commit -m"
-alias gs.="git add . && git stash"
-alias gsp="git stash pop"
-alias gsc="git stash clear"
-alias grbd="git rebase develop"
-alias grbm="grbd"
-alias gdd="git diff develop"
-alias gfx="ga . && git commit --fixup HEAD && grbi origin/HEAD"
+alias gc='git commit -m'
+alias gcd='gco develop'
+alias gcm=gcd
+alias gco='git checkout'
+alias gcob='git checkout -b'
+alias gd='git diff'
+alias gdd='git diff develop'
+alias gfx='ga . && git commit --fixup HEAD && grbi origin/HEAD'
+alias gl='git pull'
+alias glo='git log --oneline --decorate'
+alias glog='git log --oneline --decorate --graph'
+alias gp='git push'
+alias grb='git rebase'
+alias grba='git rebase --abort'
+alias grbc='git rebase --continue'
+alias grbd='git rebase develop'
+alias grbi='git rebase -i'
+alias grbm=grbd
+alias grbo='git rebase --onto'
+alias grbom='git rebase origin/$(git_main_branch)'
+alias grbs='git rebase --skip'
+alias grh='git reset'
+alias grhh='git reset --hard'
+alias gs.='git add . && git stash'
+alias gsc='git stash clear'
+alias gsp='git stash pop'
+alias gst='git status'
 # alias deploydiff="git log production..master --graph --pretty=format:'%<(23)%an    %s' --abbrev-commit"
 # alias reset-test='RAILS_ENV=test be rake db:reset'
 
 ## Docker
-alias dcdown='docker-compose down'
-alias ddown="docker-compose down"
-alias ddwon="ddown"
+# alias dcdown='docker-compose down'
+# alias ddown="docker-compose down"
+# alias ddwon="ddown"
 # alias dcr='docker-compose -f docker-compose.yml -f docker-compose.override.yml -f docker-compose.dev.yml run --rm app'
-alias dcr='docker-compose run --rm app'
-alias dcbash='dcr /bin/bash'
-alias dcrs='docker-compose restart'
-alias dcrsa='docker-compose restart app'
-alias dcrsw='docker-compose restart worker'
-alias dcup='docker-compose up -d'
+# alias dcr='docker-compose run --rm app'
+# alias dcbash='dcr /bin/bash'
+# alias dcrs='docker-compose restart'
+# alias dcrsa='docker-compose restart app'
+# alias dcrsw='docker-compose restart worker'
+# alias dcup='docker-compose up -d'
 # alias dsyncrs="docker-sync stop && docker-sync clean && docker-sync start"
 
 ## Rails stuff
+alias be="bundle exec"
+alias rap="bundle exec rake assets:precompile"
 alias rt="bundle exec rspec"
 alias rs="bundle exec rails s -p 9292"
 alias rc="bundle exec rails c"
 
-
 ## Edge deploys
-alias deploy="docker-compose run -v ~/.buildkite-build:/root/.buildkite-build app buildkite-build -p neptune-aws-deploys"
-alias deploy-jssc="docker-compose run -v ~/.buildkite-build:/root/.buildkite-build app buildkite-build -p neptune-jssc-edge-deploys"
+# alias deploy="docker-compose run -v ~/.buildkite-build:/root/.buildkite-build app buildkite-build -p neptune-aws-deploys"
+# alias deploy-jssc="docker-compose run -v ~/.buildkite-build:/root/.buildkite-build app buildkite-build -p neptune-jssc-edge-deploys"
