@@ -5,6 +5,9 @@ alias hsi='history | grep -i'
 alias md='mkdir -p'
 
 ## Personal Git aliases
+alias ga="git add"
+alias ga.="git add ."
+alias gb='git branch'
 alias gc='git commit -m'
 alias gcd='gco develop'
 alias gcm=gcd
@@ -15,7 +18,7 @@ alias gdd='git diff develop'
 alias gfx='ga . && git commit --fixup HEAD && grbi origin/HEAD'
 alias gl='git pull'
 alias glo='git log --oneline --decorate'
-alias glog='git log --oneline --decorate --graph'
+alias glog='git log --oneline --decorate -10'
 alias gp='git push'
 alias grb='git rebase'
 alias grba='git rebase --abort'
