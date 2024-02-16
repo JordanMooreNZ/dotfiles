@@ -83,14 +83,10 @@ plugins=(
   bundler
   copybuffer
   copypath
-  docker
-  docker-compose
-  dotenv
   history
   macos
   rake
   ruby
-  # thefuck
   zsh-autosuggestions
   zsh-syntax-highlighting
   safe-paste
