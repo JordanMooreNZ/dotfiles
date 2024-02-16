@@ -3,8 +3,8 @@
 DOTFILES_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
 if [[ $SHELL == *"bash"* ]]; then
-    ln -sf "$DOTFILES_DIR/.bashrc" ~
-    ln -sf "$DOTFILES_DIR/.bash_profile" ~
+#     ln -sf "$DOTFILES_DIR/.bashrc" ~
+#     ln -sf "$DOTFILES_DIR/.bash_profile" ~
 
     # load aliases
     ln -sf "$DOTFILES_DIR/.aliases" ~
