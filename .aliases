@@ -15,7 +15,7 @@ alias gco='git checkout'
 alias gcob='git checkout -b'
 alias gd='git diff | less -XFR'
 alias gdd='git diff develop'
-alias gfx='ga . && git commit --fixup HEAD && grbi origin/HEAD'
+alias gfx='ga . && git commit --fixup HEAD && grbi origin/HEAD --autosquash'
 alias gl='git pull'
 alias glo='git log --oneline --decorate'
 alias glog='git log --oneline --decorate -10'
@@ -61,8 +61,8 @@ alias rg="bundle exec rails g"
 alias rdb="bundle exec rake db"
 alias rdbm="bundle exec rake db:migrate"
 alias rdbr="bundle exec rake db:rollback"
-alias rgp="bundle exec rails g patches:patch"
-alias rpr="bundle exec rake patches:run"
+alias rgp="bundle exec rails g dbpatch"
+alias rpr="bundle exec rake db:patch"
 
 ## Edge deploys
 # alias deploy="docker-compose run -v ~/.buildkite-build:/root/.buildkite-build app buildkite-build -p neptune-aws-deploys"
