@@ -4,3 +4,6 @@ fi
 
 alias src="exec bash"
 alias load-aliases="source $HOME/.aliases"
+
+GPG_TTY=$(tty)
+export GPG_TTY

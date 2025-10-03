@@ -3,6 +3,7 @@ alias h=history
 alias hs='history | grep'
 alias hsi='history | grep -i'
 alias md='mkdir -p'
+alias oos='src'
 
 ## Personal Git aliases
 alias ga="git add"
