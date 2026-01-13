@@ -155,4 +155,6 @@ export PATH="/usr/local/sbin:$PATH"
 
 # eval "$(rbenv init - zsh)"
 
-source $HOME/.aliases
+source $HOME/dotfiles/.aliases
+
+export PATH="/usr/local/opt/openjdk@21/bin:$PATH"

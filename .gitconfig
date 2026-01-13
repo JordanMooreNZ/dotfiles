@@ -2,7 +2,8 @@
   name = Jordan Moore
   email = jordanmoore.nz@gmail.com
 [color]
-  ui = true
+	ui = auto
+	diff = auto
 [core]
   editor = code --wait
   pager = diff-so-fancy | less --tabs=4 -RFX
@@ -26,3 +27,6 @@
   autoSetupRemote = true
 [commit]
   gpgsign = true
+[alias]
+	force-push = push --force-with-lease
+	fpush = push --force-with-lease
