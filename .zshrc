@@ -94,6 +94,12 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Oh My Posh
+# eval "$(oh-my-posh init zsh --config 'jm_basic_rainbow.omp.json')"
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -135,9 +141,6 @@ export NVM_DIR="$HOME/.nvm"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias src="exec zsh"
 alias load-aliases="source $HOME/.aliases"
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # eval $(thefuck --alias)
 # # You can use whatever you want as an alias, like for Mondays:
