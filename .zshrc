@@ -98,7 +98,7 @@ source $ZSH/oh-my-zsh.sh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Oh My Posh
-# eval "$(oh-my-posh init zsh --config 'jm_basic_rainbow.omp.json')"
+# eval "$(oh-my-posh init zsh --config '/Users/jordan.moore/dotfiles/jm_basic_rainbow.omp.json')"
 
 # User configuration
 
