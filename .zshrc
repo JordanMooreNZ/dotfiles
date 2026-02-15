@@ -154,10 +154,11 @@ export PATH="/usr/local/sbin:$PATH"
 
 # export DOCKER_DEFAULT_PLATFORM=linux/arm64
 
-[ -s "/Users/jordan.moore/.scm_breeze/scm_breeze.sh" ] && source "/Users/jordan.moore/.scm_breeze/scm_breeze.sh"
+# [ -s "/Users/jordan.moore/.scm_breeze/scm_breeze.sh" ] && source "/Users/jordan.moore/.scm_breeze/scm_breeze.sh"
 
 # eval "$(rbenv init - zsh)"
 
 source $HOME/dotfiles/.aliases
 
 export PATH="/usr/local/opt/openjdk@21/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
