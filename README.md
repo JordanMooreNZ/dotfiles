@@ -1,64 +1,82 @@
 # dotfiles
 
-This repository contains the dotfiles I use to configure my development environment and sync to [GitHub Codespaces](https://docs.github.com/en/codespaces/customizing-your-codespace/personalizing-github-codespaces-for-your-account#dotfiles) (read more in my [blog post](https://josh-ops.com/posts/github-codespaces-powerlevel10k/)). 
+My personal macOS / zsh setup: oh-my-zsh + [powerlevel10k](https://github.com/romkatv/powerlevel10k)
+(rainbow style), aliases, git config, Homebrew packages, and an iTerm2 profile.
+Works on both Apple Silicon and Intel Macs.
 
-## Setup
+Originally based on [joshjohanning/dotfiles](https://github.com/joshjohanning/dotfiles)
+(see the [blog post](https://josh-ops.com/posts/github-codespaces-powerlevel10k/)).
 
-These are instructions on how to set up your local environment by creating symbolic links (symlinks) to the dotfiles in this repo:
-
-1. Create dotfiles repo, ie: `mkdir ~/dotfiles && cd ~/dotfiles && git init`
-2. Run the `ln -s` commands below to create the appropriate symlinks
-3. Commit your changes to the dotfiles repo
+## Set up a new Mac
 
 ```bash
-ln -s ~/dotfiles/.zshrc ~/.zshrc
-ln -s ~/dotfiles/.p10k.zsh ~/.p10k.zsh
-ln -s ~/dotfiles/.gitconfig ~/.gitconfig
+# 1. Install the Xcode command line tools (gives you git)
+xcode-select --install
+
+# 2. Clone this repo to ~/dotfiles (the path the configs expect)
+git clone git@github.com:JordanMooreNZ/dotfiles.git ~/dotfiles
+cd ~/dotfiles
+
+# 3. Run the installer (idempotent — safe to re-run)
+./install.sh
 ```
 
-## Unlink
+`install.sh` will:
 
-To remove the symlinks, run the following commands:
+- install Homebrew (if missing) and everything in the `Brewfile`
+  (including the `MesloLGS NF` font and iTerm2),
+- install oh-my-zsh, the zsh plugins, and powerlevel10k,
+- symlink `.zshrc`, `.zshenv`, `.p10k.zsh`, `.gitconfig`, and `.aliases` into `$HOME`.
+
+### 4. Configure iTerm2 (for the powerlevel10k look)
+
+1. iTerm2 → Settings → Profiles → **Other Actions → Import JSON Profiles** →
+   select `iterm2-profile.json`.
+2. Make it the default profile.
+3. The profile already specifies the font **MesloLGS NF** (installed by the
+   Brewfile). If glyphs/separators look wrong, set it manually under
+   Profiles → Text → Font → **MesloLGS NF**.
+
+Open a new tab (or run `exec zsh`) and you should get the rainbow prompt with no
+startup errors.
+
+### 5. GPG commit signing
+
+`.gitconfig` enables signed commits (`commit.gpgsign = true`). On a machine
+without a GPG key set up, commits will fail. Either
+[set up a signing key](https://docs.github.com/en/authentication/managing-commit-signature-verification),
+or disable signing locally:
 
 ```bash
-unlink ~/.zshrc
-unlink ~/.p10k.zsh
-unlink ~/.gitconfig
+git config --global commit.gpgsign false
 ```
 
-## dotfiles with GitHub Codespaces
-
-`install.sh` installs zsh plugins, copies over `.zshrc` and `.p10k.zsh`, and sets other defaults (like directory text color and time zone).
-
-Mark `install.sh` as executable: `git add install.sh --chmod=+x`
-
-See [link](https://burkeholland.github.io/posts/codespaces-dotfiles/) for more info
-
-## Brewfile
-
-Running this command exports formulae, casks, and VS Code extensions to a file:
+## Manual symlinks (alternative to install.sh)
 
 ```bash
-# creating a Brewfile
+for f in .zshrc .zshenv .p10k.zsh .gitconfig .aliases; do
+  ln -sf ~/dotfiles/$f ~/$f
+done
+```
+
+To remove them: `unlink ~/.zshrc` (and so on for each file).
+
+## Updating the exported configs
+
+```bash
+# Brewfile (formulae, casks, VS Code extensions)
 brew bundle dump --file=~/dotfiles/Brewfile --force
-# installing a Brewfile
-brew bundle install --file=~/dotfiles/Brewfile
+
+# iTerm2 profile (iTerm2 → Settings → Profiles → Other Actions → Save Profile as JSON)
+# overwrite iterm2-profile.json
+
+# VS Code profile: Code → Settings → Profiles → Export → Default.code-profile
+
+# gh CLI extensions
+gh extension list | awk '{print $3}' > ~/dotfiles/gh-extensions-list.txt
 ```
 
-## VS Code
+## GitHub Codespaces
 
-My default profile is saved as `Default.code-profile` (exported manually via Code > Settings > Profiles)
-
-Extensions are exported via the `brew` command above.
-
-## iTerm2
-
-My iTerm2 profile is saved as `iterm2-profile.json` (exported manually via iTerm2 > Settings > Profiles > Other Actions > Save Profile as JSON)
-
-## GitHub CLI Extensions
-
-Exporting a list of installed `gh` extensions:
-
-```bash
-gh extension list | awk '{print $3}' > gh-extensions-list.txt
-```
+This repo also works as a Codespaces dotfiles repo — Codespaces runs `install.sh`
+automatically. See [this guide](https://burkeholland.github.io/posts/codespaces-dotfiles/).

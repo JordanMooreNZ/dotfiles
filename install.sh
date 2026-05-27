@@ -1,55 +1,56 @@
-#!/bin/bash
+#!/usr/bin/env bash
+#
+# Idempotent dotfiles installer. Safe to run multiple times.
+# Sets up Homebrew, packages, oh-my-zsh + plugins, powerlevel10k, and symlinks.
+
+set -euo pipefail
 
 DOTFILES_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
 
-# ln -sf "$DOTFILES_DIR/.bashrc" ~
-# ln -sf "$DOTFILES_DIR/.bash_profile" ~
+info() { printf "\n\033[1;34m==> %s\033[0m\n" "$*"; }
 
-# load aliases
-ln -sf "$DOTFILES_DIR/.aliases" ~
-source ~/.aliases
+# 1. Homebrew --------------------------------------------------------------
+if ! command -v brew >/dev/null 2>&1; then
+  info "Installing Homebrew"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+# Load brew into this shell (prefix-aware: Apple Silicon vs Intel)
+if [[ -x /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -x /usr/local/bin/brew ]]; then
+  eval "$(/usr/local/bin/brew shellenv)"
+fi
 
-# set gitconfig defaults
-git config --global push.autoSetupRemote true
-git config --global core.pager cat
-git config --global core.editor "code --wait"
+info "Installing packages from Brewfile"
+brew bundle --file="$DOTFILES_DIR/Brewfile"
 
-zshrc() {
-    echo "==========================================================="
-    echo "             cloning zsh-autosuggestions                   "
-    echo "-----------------------------------------------------------"
-    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-    echo "==========================================================="
-    echo "             cloning zsh-syntax-highlighting               "
-    echo "-----------------------------------------------------------"
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-    echo "==========================================================="
-    echo "             cloning powerlevel10k                         "
-    echo "-----------------------------------------------------------"
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-    echo "==========================================================="
-    echo "             import zshrc                                  "
-    echo "-----------------------------------------------------------"
-    ln -sf "$DOTFILES_DIR/.zshrc" ~
-    echo "==========================================================="
-    echo "             import powerlevel10k                          "
-    echo "-----------------------------------------------------------"
-    ln -sf "$DOTFILES_DIR/.p10k.zsh" ~
+# 2. oh-my-zsh + plugins + powerlevel10k -----------------------------------
+if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
+  info "Installing oh-my-zsh"
+  RUNZSH=no KEEP_ZSHRC=yes sh -c \
+    "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
+
+clone_if_missing() {
+  local repo="$1" dest="$2"
+  if [[ -d "$dest" ]]; then
+    echo "  already present: $dest"
+  else
+    git clone --depth=1 "$repo" "$dest"
+  fi
 }
 
-zshrc
+info "Installing zsh plugins and powerlevel10k"
+clone_if_missing https://github.com/zsh-users/zsh-autosuggestions      "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
+clone_if_missing https://github.com/zsh-users/zsh-syntax-highlighting  "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
+clone_if_missing https://github.com/romkatv/powerlevel10k              "$ZSH_CUSTOM/themes/powerlevel10k"
 
-# make directly highlighting readable - needs to be after zshrc line
-echo "" >> $DOTFILES_DIR/.zshrc
-echo "# remove ls and directory completion highlight color" >> $DOTFILES_DIR/.zshrc
-echo "_ls_colors=':ow=01;33'" >> $DOTFILES_DIR/.zshrc
-echo 'zstyle ":completion:*:default" list-colors "${(s.:.)_ls_colors}"' >> $DOTFILES_DIR/.zshrc
-echo 'LS_COLORS+=$_ls_colors' >> $DOTFILES_DIR/.zshrc
+# 3. Symlink dotfiles ------------------------------------------------------
+info "Symlinking dotfiles into \$HOME"
+for f in .zshrc .zshenv .p10k.zsh .gitconfig .aliases; do
+  ln -sfv "$DOTFILES_DIR/$f" "$HOME/$f"
+done
 
-# add source command to .bashrc
-# echo "if [ -f ~/.aliases ]; then" >> ~/.bashrc
-# echo "    source ~/.aliases" >> ~/.bashrc
-# echo "fi" >> ~/.bashrc
-
-# source .bashrc to load aliases into current session
-# source ~/.bashrc
+info "Done. Open a new iTerm tab (or run: exec zsh)."
+echo "Reminder: set the iTerm font to 'MesloLGS NF' — see README.md."

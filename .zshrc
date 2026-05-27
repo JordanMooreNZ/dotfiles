@@ -5,6 +5,14 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# Homebrew: detect prefix so this config works on Apple Silicon (/opt/homebrew)
+# and Intel (/usr/local). Sets $HOMEBREW_PREFIX and adds brew to PATH.
+if [[ -x /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -x /usr/local/bin/brew ]]; then
+  eval "$(/usr/local/bin/brew shellenv)"
+fi
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -107,12 +115,15 @@ source $ZSH/oh-my-zsh.sh
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+# Preferred editor for local and remote sessions.
+# Prefer Sublime, fall back to VS Code, then vi, depending on what's installed.
+if command -v subl >/dev/null 2>&1; then
+  export EDITOR="subl -n -w"
+elif command -v code >/dev/null 2>&1; then
+  export EDITOR="code --wait"
+else
+  export EDITOR="vi"
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -126,10 +137,10 @@ export TERM=xterm-256color
 # asdf
 # export PATH="$HOME/.asdf/bin:$HOME/.asdf/shims:$PATH"
 
-# nvm
+# nvm (installed via Homebrew; path is prefix-aware for Apple Silicon/Intel)
 export NVM_DIR="$HOME/.nvm"
-  [ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-  [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+[ -s "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" ] && \. "$HOMEBREW_PREFIX/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -145,7 +156,6 @@ alias load-aliases="source $HOME/.aliases"
 # eval $(thefuck --alias)
 # # You can use whatever you want as an alias, like for Mondays:
 # eval $(thefuck --alias FUCK)
-export PATH="/usr/local/sbin:$PATH"
 
 # This check to make sure the GPG Agent is running and if not, starts it
 # if [[ ! -S ~/.gnupg/S.gpg-agent && ! -n "$(pgrep gpg-agent)" ]]; then
@@ -156,9 +166,17 @@ export PATH="/usr/local/sbin:$PATH"
 
 # [ -s "/Users/jordan.moore/.scm_breeze/scm_breeze.sh" ] && source "/Users/jordan.moore/.scm_breeze/scm_breeze.sh"
 
-# eval "$(rbenv init - zsh)"
+# rbenv (only if installed)
+command -v rbenv >/dev/null 2>&1 && eval "$(rbenv init - zsh)"
 
-source $HOME/dotfiles/.aliases
+# Load personal aliases (guarded so a missing file doesn't error on startup)
+[[ -f "$HOME/dotfiles/.aliases" ]] && source "$HOME/dotfiles/.aliases"
 
-export PATH="/usr/local/opt/openjdk@21/bin:$PATH"
+# OpenJDK 21 (only if installed via Homebrew; prefix-aware)
+[[ -d "$HOMEBREW_PREFIX/opt/openjdk@21/bin" ]] && export PATH="$HOMEBREW_PREFIX/opt/openjdk@21/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+
+# remove ls and directory completion highlight color
+_ls_colors=':ow=01;33'
+zstyle ":completion:*:default" list-colors "${(s.:.)_ls_colors}"
+LS_COLORS+=$_ls_colors
