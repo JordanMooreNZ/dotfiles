@@ -59,6 +59,11 @@ alias load-aliases="source $HOME/.aliases"
 # fzf shell integration (Ctrl+R history, Ctrl+T file search, Alt+C cd)
 source <(fzf --zsh)
 
+# GPG: only export TTY when stdin is a real terminal — pinentry-curses fallback
+# needs it, but in non-tty shells `tty` returns "not a tty" and pollutes the env,
+# breaking pinentry-mac.
+[[ -t 0 ]] && export GPG_TTY=$(tty)
+
 # direnv
 eval "$(direnv hook zsh)"
 
