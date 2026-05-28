@@ -23,7 +23,7 @@ elif [[ -x /usr/local/bin/brew ]]; then
 fi
 
 info "Installing packages from Brewfile"
-brew bundle --file="$DOTFILES_DIR/Brewfile"
+brew bundle --file="$DOTFILES_DIR/Brewfile" --no-lock || true
 
 # 2. oh-my-zsh + plugins + powerlevel10k -----------------------------------
 if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
