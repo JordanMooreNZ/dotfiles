@@ -137,10 +137,8 @@ export TERM=xterm-256color
 # asdf
 # export PATH="$HOME/.asdf/bin:$HOME/.asdf/shims:$PATH"
 
-# nvm (installed via Homebrew; path is prefix-aware for Apple Silicon/Intel)
-export NVM_DIR="$HOME/.nvm"
-[ -s "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" ] && \. "$HOMEBREW_PREFIX/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+# fnm (Node version manager)
+command -v fnm >/dev/null 2>&1 && eval "$(fnm env --use-on-cd --shell zsh)"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -175,6 +173,12 @@ command -v rbenv >/dev/null 2>&1 && eval "$(rbenv init - zsh)"
 # OpenJDK 21 (only if installed via Homebrew; prefix-aware)
 [[ -d "$HOMEBREW_PREFIX/opt/openjdk@21/bin" ]] && export PATH="$HOMEBREW_PREFIX/opt/openjdk@21/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+
+# fzf shell integration (Ctrl+R history, Ctrl+T file search, Alt+C cd)
+source <(fzf --zsh)
+
+# direnv
+eval "$(direnv hook zsh)"
 
 # remove ls and directory completion highlight color
 _ls_colors=':ow=01;33'
