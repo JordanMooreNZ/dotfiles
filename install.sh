@@ -46,11 +46,29 @@ clone_if_missing https://github.com/zsh-users/zsh-autosuggestions      "$ZSH_CUS
 clone_if_missing https://github.com/zsh-users/zsh-syntax-highlighting  "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
 clone_if_missing https://github.com/romkatv/powerlevel10k              "$ZSH_CUSTOM/themes/powerlevel10k"
 
-# 3. Symlink dotfiles ------------------------------------------------------
+# 3. MesloLGS NF fonts (required for powerlevel10k rainbow style) ----------
+install_font() {
+  local name="$1" url="$2"
+  local dest="$HOME/Library/Fonts/$name"
+  if [[ -f "$dest" ]]; then
+    echo "  already present: $name"
+  else
+    curl -fsSL -o "$dest" "$url" && echo "  installed: $name"
+  fi
+}
+
+info "Installing MesloLGS NF fonts"
+base="https://github.com/romkatv/powerlevel10k-media/raw/master"
+install_font "MesloLGS NF Regular.ttf"     "$base/MesloLGS%20NF%20Regular.ttf"
+install_font "MesloLGS NF Bold.ttf"        "$base/MesloLGS%20NF%20Bold.ttf"
+install_font "MesloLGS NF Italic.ttf"      "$base/MesloLGS%20NF%20Italic.ttf"
+install_font "MesloLGS NF Bold Italic.ttf" "$base/MesloLGS%20NF%20Bold%20Italic.ttf"
+
+# 4. Symlink dotfiles ------------------------------------------------------
 info "Symlinking dotfiles into \$HOME"
 for f in .zshrc .zshenv .p10k.zsh .gitconfig .aliases; do
   ln -sfv "$DOTFILES_DIR/$f" "$HOME/$f"
 done
 
 info "Done. Open a new iTerm tab (or run: exec zsh)."
-echo "Reminder: set the iTerm font to 'MesloLGS NF' — see README.md."
+echo "iTerm setup: font=MesloLGS NF 13, color preset=Solarized Dark, Powerline glyphs=on — see README.md."

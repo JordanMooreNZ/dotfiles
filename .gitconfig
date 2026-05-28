@@ -1,6 +1,7 @@
 [user]
   name = Jordan Moore
   email = jordanmoore.nz@gmail.com
+	signingkey = 7ACCABD4FF612C08
 [color]
 	ui = auto
 	diff = auto
@@ -30,3 +31,9 @@
 [alias]
 	force-push = push --force-with-lease
 	fpush = push --force-with-lease
+[credential "https://github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
