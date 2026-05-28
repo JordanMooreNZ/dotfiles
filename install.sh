@@ -70,5 +70,18 @@ for f in .zshrc .zshenv .p10k.zsh .gitconfig .aliases; do
   ln -sfv "$DOTFILES_DIR/$f" "$HOME/$f"
 done
 
+if [[ ! -f "$HOME/.gitconfig.local" ]]; then
+  info "Missing ~/.gitconfig.local"
+  cat <<'NOTE'
+  The tracked .gitconfig pulls in ~/.gitconfig.local for per-machine settings
+  (e.g. GPG signing key). Create it with this machine's signing key:
+
+    [user]
+        signingkey = <this-machine's-gpg-key-id>
+
+  Find the key id via:  gpg --list-secret-keys --keyid-format=long
+NOTE
+fi
+
 info "Done. Open a new iTerm tab (or run: exec zsh)."
 echo "iTerm setup: font=MesloLGS NF 13, color preset=Solarized Dark, Powerline glyphs=on — see README.md."

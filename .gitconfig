@@ -1,7 +1,9 @@
 [user]
   name = Jordan Moore
   email = jordanmoore.nz@gmail.com
-	signingkey = 15B3DAFEDB846E44
+# Per-machine overrides (signingkey, etc.) live here; not tracked.
+[include]
+  path = ~/.gitconfig.local
 [color]
 	ui = auto
 	diff = auto
