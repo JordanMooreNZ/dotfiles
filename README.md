@@ -80,3 +80,10 @@ gh extension list | awk '{print $3}' > ~/dotfiles/gh-extensions-list.txt
 
 This repo also works as a Codespaces dotfiles repo — Codespaces runs `install.sh`
 automatically. See [this guide](https://burkeholland.github.io/posts/codespaces-dotfiles/).
+
+## Related: Claude Code config
+
+My Claude Code setup (global instructions, `settings.json`, hooks, status line,
+and custom skills) lives in a separate **private** repo —
+`JordanMooreNZ/claude-config`. On a new machine, clone it and run its
+`install.sh` to symlink everything into `~/.claude`.
