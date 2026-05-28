@@ -70,8 +70,6 @@ brew bundle dump --file=~/dotfiles/Brewfile --force
 # iTerm2 profile (iTerm2 → Settings → Profiles → Other Actions → Save Profile as JSON)
 # overwrite iterm2-profile.json
 
-# VS Code profile: Code → Settings → Profiles → Export → Default.code-profile
-
 # gh CLI extensions
 gh extension list | awk '{print $3}' > ~/dotfiles/gh-extensions-list.txt
 ```
