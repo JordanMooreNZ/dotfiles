@@ -71,3 +71,6 @@ eval "$(direnv hook zsh)"
 _ls_colors=':ow=01;33'
 zstyle ":completion:*:default" list-colors "${(s.:.)_ls_colors}"
 LS_COLORS+=$_ls_colors
+
+# headroom-wrapped Claude Code (skip broken rtk integration; existing rtk hook in settings.json still active)
+alias hcc='headroom wrap claude --no-rtk --no-telemetry --no-serena'
